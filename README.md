@@ -2,6 +2,8 @@
 
 A hands-on Microsoft security operations lab built to practise SIEM monitoring, KQL investigation, detection engineering, incident handling, threat intelligence/watchlists, containment and identity security.
 
+**Learning / lab period:** December 2025 – June 2026 (approximately 6 months of progressive cybersecurity study and hands-on practice). The repository was created later to document the work as a portfolio project.
+
 ## Project Overview
 
 I built an Azure-based SOC lab while developing practical skills aligned with the Microsoft SC-200 Security Operations Analyst role.
