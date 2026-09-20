@@ -1,0 +1,12 @@
+// Lab detection concept:
+// Identify 3 or more failed SSH authentication events within 5-minute bins.
+
+Syslog
+| where ProcessName =~ "sshd" or SyslogMessage has "sshd"
+| where SyslogMessage has_any ("Failed password", "authentication failure")
+| summarize FailedAttempts=count(),
+            FirstSeen=min(TimeGenerated),
+            LastSeen=max(TimeGenerated)
+    by Computer, bin(TimeGenerated, 5m)
+| where FailedAttempts >= 3
+| order by FailedAttempts desc
