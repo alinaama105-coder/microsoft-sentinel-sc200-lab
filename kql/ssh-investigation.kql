@@ -1,0 +1,23 @@
+// Microsoft Sentinel / Log Analytics
+// Lab queries for investigating Linux SSH authentication events.
+// Field formats can vary by Syslog source and connector configuration.
+
+// Review SSH-related Syslog events
+Syslog
+| where ProcessName =~ "sshd" or SyslogMessage has "sshd"
+| project TimeGenerated, Computer, HostName, ProcessName, SyslogMessage
+| order by TimeGenerated desc
+
+// Failed SSH authentication activity
+Syslog
+| where ProcessName =~ "sshd" or SyslogMessage has "sshd"
+| where SyslogMessage has_any ("Failed password", "authentication failure")
+| project TimeGenerated, Computer, SyslogMessage
+| order by TimeGenerated desc
+
+// Successful SSH authentication activity
+Syslog
+| where ProcessName =~ "sshd" or SyslogMessage has "sshd"
+| where SyslogMessage has "Accepted"
+| project TimeGenerated, Computer, SyslogMessage
+| order by TimeGenerated desc
